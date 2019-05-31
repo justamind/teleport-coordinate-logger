@@ -22,7 +22,6 @@ public class NameRetriever extends Thread {
         if (output.containsKey(uuid)) {
             return;
         }
-        System.out.println("Retrieving name!");
 
         HttpResponse<JsonNode> response;
         try {
