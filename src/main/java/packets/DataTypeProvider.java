@@ -108,7 +108,7 @@ public class DataTypeProvider {
     public int readShort() {
         byte low = readNext();
         byte high = readNext();
-        return (((low & 0xFF) << 8) | (high & 0xFF));
+        return (short) (((low & 0xFF) << 8) | (high & 0xFF));
     }
 
     public Coordinate3D readCoordinates() {
@@ -157,9 +157,16 @@ public class DataTypeProvider {
         }
     }
 
+    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
     public String readUUID() {
         byte[] bytes = readByteArray(16);
-        return bytes.toString();
+        char[] chars = new char[32];
+        for ( int j = 0; j < bytes.length; j++ ) {
+            int v = bytes[j] & 0xFF;
+            chars[j * 2] = hexArray[v >>> 4];
+            chars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(chars);
     }
 
     public double readDouble() {

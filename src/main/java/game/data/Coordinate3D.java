@@ -20,4 +20,14 @@ public class Coordinate3D extends Coordinate2D {
     public String toString() {
         return "(" + x + ", " + y + ", " + z + ")";
     }
+
+    public void setX(int i) {
+        this.x = i;
+    }
+    public void setY(int i) {
+        this.y = i;
+    }
+    public void setZ(int i) {
+        this.z = i;
+    }
 }
