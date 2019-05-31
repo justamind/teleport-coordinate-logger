@@ -157,6 +157,11 @@ public class DataTypeProvider {
         }
     }
 
+    public String readUUID() {
+        byte[] bytes = readByteArray(16);
+        return bytes.toString();
+    }
+
     public double readDouble() {
         byte[] bytes = readByteArray(8);
         ByteBuffer buffer = ByteBuffer.allocate(Double.BYTES);

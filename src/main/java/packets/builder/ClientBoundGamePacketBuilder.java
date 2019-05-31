@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClientBoundGamePacketBuilder extends PacketBuilder {
+    private HashMap<Integer, String> players = new HashMap<>();
+
     private HashMap<String, PacketOperator> operations = new HashMap<>();
     public ClientBoundGamePacketBuilder() {
         operations.put("chunk_data", provider -> {
@@ -51,6 +53,29 @@ public class ClientBoundGamePacketBuilder extends PacketBuilder {
 
         operations.put("player_position_look", updatePlayerPosition);
         operations.put("player_vehicle_move", updatePlayerPosition);
+
+
+        operations.put("spawn_player", (provider) -> {
+            int entId = provider.readVarInt();
+            String uuid = provider.readUUID();
+            players.put(entId, uuid);
+            System.out.println("New player spawned with UUID " + uuid + " at " + new Coordinate3D(provider.readDouble(), provider.readDouble(), provider.readDouble()));
+            return true;
+        });
+
+        operations.put("entity_teleport", provider -> {
+            int entId = provider.readVarInt();
+            Coordinate3D dest = new Coordinate3D(provider.readDouble(), provider.readDouble(), provider.readDouble());
+            if (players.containsKey(entId)) {
+                System.out.println("Player " + players.get(entId) + " moved to " + dest);
+            }
+            return true;
+        });
+        operations.put("entity_move", provider -> {
+            int entId = provider.readVarInt();
+
+            return true;
+        });
     }
 
     @Override

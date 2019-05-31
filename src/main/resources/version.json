@@ -8,7 +8,10 @@
 				"0x1D": "chunk_unload",
 				"0x2F": "player_position_look",
 				"0x29": "player_vehicle_move",
-				"0x09": "update_block_entity"
+				"0x09": "update_block_entity",
+				"0x05": "spawn_player",
+				"0x4C": "entity_teleport",
+				"0x26": "entity_move"
 			},
 			"serverbound": {
 				"0x0D": "player_position",
