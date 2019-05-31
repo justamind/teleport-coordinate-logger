@@ -10,11 +10,11 @@ A Minecraft teleport coordinate "exploit" that works by intercepting & decryptin
 - Minecraft version 1.12.2+ // 1.13.2+ // 1.14.1+
 
 ### Basic usage
-[Download](https://github.com/mircokroon/teleport-coordinate-logger/releases) the latest release and execute the jar file using the commandline by running:
+[Download](https://github.com/mircokroon/teleport-coordinate-logger/releases) the latest coord-logger.jar and execute the jar file using the commandline by running:
 
 ```java -jar coord-logger.jar -s address.to.server.com```
 
-Then connect to ```localhost``` in Minecraft to log coordinates.
+Then connect to ```localhost``` in Minecraft to log coordinates of all players teleporting from your render distance.
 
 
 ### Options
