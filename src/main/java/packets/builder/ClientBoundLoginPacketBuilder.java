@@ -2,11 +2,6 @@ package packets.builder;
 
 import game.Game;
 import game.NetworkMode;
-import game.data.Coordinate2D;
-import game.data.Coordinate3D;
-import game.data.WorldManager;
-import game.data.chunk.ChunkFactory;
-import packets.DataTypeProvider;
 
 import java.util.HashMap;
 import java.util.Map;
