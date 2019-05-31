@@ -15,7 +15,6 @@ public class ServerBoundGamePacketBuilder extends PacketBuilder {
             double z = provider.readDouble();
 
             Coordinate3D playerPos = new Coordinate3D(x, y, z);
-            playerPos.offsetGlobal();
             Game.setPlayerPosition(playerPos);
 
             return true;

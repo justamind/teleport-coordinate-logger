@@ -12,25 +12,8 @@ public class Coordinate3D extends Coordinate2D {
         this.y = y;
     }
 
-    public void setTo(int x, int y, int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-
     public int getY() {
         return y;
-    }
-    public Coordinate2D chunkPos() {
-        return new Coordinate2D(chunkPosX(), chunkPosZ());
-    }
-
-    private int chunkPosX() {
-        return x >> 4;
-    }
-
-    private int chunkPosZ() {
-        return z >> 4;
     }
 
     @Override

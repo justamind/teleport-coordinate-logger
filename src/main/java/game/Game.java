@@ -1,16 +1,10 @@
 package game;
 
-import game.data.Coordinate2D;
 import game.data.Coordinate3D;
-import game.data.Dimension;
-import game.data.WorldManager;
-import game.data.chunk.ChunkFactory;
-import game.data.chunk.Palette;
 import game.protocol.HandshakeProtocol;
 import game.protocol.LoginProtocol;
 import game.protocol.Protocol;
 import game.protocol.StatusProtocol;
-import gui.GuiManager;
 import net.sourceforge.argparse4j.inf.Namespace;
 import packets.DataReader;
 import packets.builder.ClientBoundGamePacketBuilder;
@@ -26,24 +20,18 @@ import proxy.CompressionManager;
 import proxy.EncryptionManager;
 import proxy.ProxyServer;
 
-import java.io.File;
-import java.nio.file.Paths;
-
 /**
  * Class the manage the central configuration and set up.
  */
 public abstract class Game {
     private static final int DEFAULT_VERSION = 340;
     private static NetworkMode mode = NetworkMode.STATUS;
-    private static Dimension dimension = Dimension.OVERWORLD;
 
     private static DataReader serverBoundDataReader;
     private static DataReader clientBoundDataReader;
     private static EncryptionManager encryptionManager;
     private static CompressionManager compressionManager;
     private static String host;
-    private static String exportDir;
-    private static long seed;
     private static int portRemote;
     private static int portLocal;
     private static Coordinate3D playerPosition;
@@ -69,13 +57,6 @@ public abstract class Game {
         return compressionManager;
     }
 
-    public static Dimension getDimension() {
-        return dimension;
-    }
-
-    public static void setDimension(Dimension dimension) {
-        Game.dimension = dimension;
-    }
 
     public static Coordinate3D getPlayerPosition() {
         return playerPosition;
@@ -86,10 +67,6 @@ public abstract class Game {
     }
 
 
-    public static long getSeed() {
-        return seed;
-    }
-
     /**
      * Parse arguments from the commandline.
      */
@@ -97,24 +74,7 @@ public abstract class Game {
         host = args.getString("server");
         portRemote = args.getInt("port");
         portLocal = args.getInt("local-port");
-        exportDir = args.getString("output");
-        seed = args.getLong("seed");
         gamePath = args.getString("minecraft");
-
-        Coordinate2D.setOffset(-args.getInt("center-x"), -args.getInt("center-z"));
-
-        Palette.setMaskBedrock(args.getBoolean("mask-bedrock"));
-
-        File dir = Paths.get(exportDir, "region").toFile();
-        if (!dir.isDirectory()) {
-            dir.mkdirs();
-        }
-
-        ChunkFactory.startChunkParserService();
-        WorldManager.startSaveService();
-        if (args.getBoolean("gui")) {
-            GuiManager.showGui();
-        }
 
         versionHandler = VersionHandler.createVersionHandler();
     }
@@ -181,10 +141,6 @@ public abstract class Game {
         setMode(NetworkMode.HANDSHAKE);
     }
 
-    public static String getExportDirectory() {
-        return exportDir;
-    }
-
     public static String getGamePath() {
         return gamePath;
     }
@@ -201,7 +157,6 @@ public abstract class Game {
         Protocol p = versionHandler.getProtocol(protocolVersion);
         Game.dataVersion = p.getDataVersion();
         Game.gameVersion = p.getVersion();
-        WorldManager.setGlobalPalette(p.getVersion());
         System.out.println("Using protocol of game version " + p.getVersion() + " ("  + protocolVersion + ")");
         return p;
     }
