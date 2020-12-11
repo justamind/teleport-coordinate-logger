@@ -24,7 +24,7 @@ import proxy.ProxyServer;
  * Class the manage the central configuration and set up.
  */
 public abstract class Game {
-    private static final int DEFAULT_VERSION = 340;
+    private static final int DEFAULT_VERSION = 2685;
     private static NetworkMode mode = NetworkMode.STATUS;
 
     private static DataReader serverBoundDataReader;
